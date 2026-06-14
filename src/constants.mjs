@@ -1,7 +1,5 @@
 export const MODULE = { ID: "token-action-hud-teriock" };
 
-export const CORE_MODULE = { ID: "token-action-hud-core" };
-
 export const REQUIRED_CORE_MODULE_VERSION = "2";
 
 export const TOP_GROUPS = {
@@ -46,13 +44,13 @@ export const GROUPS = {
   },
   basicAbilitiesSlow: { id: "basic-abilities-slow", name: "TERIOCK_TAH.BASIC_ABILITIES.GROUPS.slow", type: "system" },
 
-  bodyParts: { id: "body-parts", name: "TERIOCK_TAH.ARMAMENTS.GROUPS.bodyParts", type: "system" },
   // Armaments
+  bodyParts: { id: "body-parts", name: "TERIOCK_TAH.ARMAMENTS.GROUPS.bodyParts", type: "system" },
   equipmentEquipped: { id: "equipment-equipped", name: "TERIOCK_TAH.ARMAMENTS.GROUPS.equipped", type: "system" },
   equipmentUnequipped: { id: "equipment-unequipped", name: "TERIOCK_TAH.ARMAMENTS.GROUPS.unequipped", type: "system" },
 
-  fluencies: { id: "fluencies", name: "TERIOCK_TAH.TRADECRAFTS.GROUPS.fluencies", type: "system" },
   // Tradecrafts
+  fluencies: { id: "fluencies", name: "TERIOCK_TAH.TRADECRAFTS.GROUPS.fluencies", type: "system" },
   tradecraftsArtisan: { id: "artisan", name: "TERIOCK_TAH.TRADECRAFTS.GROUPS.artisan", type: "system" },
   tradecraftsMediator: { id: "mediator", name: "TERIOCK_TAH.TRADECRAFTS.GROUPS.mediator", type: "system" },
   tradecraftsPrestige: { id: "prestige", name: "TERIOCK_TAH.TRADECRAFTS.GROUPS.prestige", type: "system" },
@@ -65,6 +63,7 @@ export const GROUPS = {
   // Protections
   protections: { id: "protections", name: "TERIOCK_TAH.SAVES.GROUPS.protections", type: "system" },
 
+  // Consumables
   consumableAbilities: { id: "consumable-abilities", name: "TERIOCK_TAH.CONSUMABLES.GROUPS.abilities", type: "system" },
   consumableEquipment: { id: "consumable-equipment", name: "TERIOCK_TAH.CONSUMABLES.GROUPS.equipment", type: "system" },
   consumableProperties: {
@@ -72,9 +71,9 @@ export const GROUPS = {
     name: "TERIOCK_TAH.CONSUMABLES.GROUPS.properties",
     type: "system",
   },
-  // Consumables
   resources: { id: "resources", name: "TERIOCK_TAH.CONSUMABLES.GROUPS.resources", type: "system" },
 
+  // Other Documents
   archetypes: { id: "archetypes", name: "TERIOCK_TAH.DOCUMENTS.GROUPS.archetypes", type: "system" },
   conditions: { id: "conditions", name: "TERIOCK_TAH.DOCUMENTS.GROUPS.conditions", type: "system" },
   consequences: { id: "consequences", name: "TERIOCK_TAH.DOCUMENTS.GROUPS.consequences", type: "system" },
@@ -84,6 +83,5 @@ export const GROUPS = {
   mounts: { id: "mounts", name: "TERIOCK_TAH.DOCUMENTS.GROUPS.mounts", type: "system" },
   powers: { id: "powers", name: "TERIOCK_TAH.DOCUMENTS.GROUPS.powers", type: "system" },
   ranks: { id: "ranks", name: "TERIOCK_TAH.DOCUMENTS.GROUPS.ranks", type: "system" },
-  // Other Documents
   species: { id: "species", name: "TERIOCK_TAH.DOCUMENTS.GROUPS.species", type: "system" },
 };
