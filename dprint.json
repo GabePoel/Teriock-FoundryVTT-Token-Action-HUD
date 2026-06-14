@@ -1,0 +1,30 @@
+{
+  "includes": [
+    "**/*.mjs",
+    "**/*.json",
+    "**/*.md"
+  ],
+  "json": {
+    "indentWidth": 2,
+    "useTabs": false
+  },
+  "lineWidth": 120,
+  "plugins": [
+    "https://plugins.dprint.dev/json-0.21.3.wasm",
+    "https://plugins.dprint.dev/markdown-0.22.0.wasm",
+    "https://plugins.dprint.dev/typescript-0.93.0.wasm"
+  ],
+  "typescript": {
+    "indentWidth": 2,
+    "module.sortExportDeclarations": "maintain",
+    "module.sortImportDeclarations": "maintain",
+    "quoteStyle": "alwaysDouble",
+    "semiColons": "always",
+    "singleBodyPosition": "sameLine",
+    "trailingCommas": "onlyMultiLine",
+    "typeLiteral.separatorKind.singleLine": "comma",
+    "useBraces": "always",
+    "useTabs": false,
+    "preferSingleLine": true
+  }
+}

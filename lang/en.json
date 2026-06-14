@@ -1,0 +1,72 @@
+{
+  "TERIOCK_TAH": {
+    "ABILITIES": {
+      "LABEL": "Abilities",
+      "GROUPS": {
+        "active": "Active Abilities",
+        "reactive": "Reactive Abilities",
+        "slow": "Slow Abilities",
+        "passive": "Passive Abilities"
+      }
+    },
+    "BASIC_ABILITIES": {
+      "LABEL": "Basic Abilities",
+      "GROUPS": {
+        "active": "Active Basic Abilities",
+        "reactive": "Reactive Basic Abilities",
+        "slow": "Slow Basic Abilities",
+        "passive": "Passive Basic Abilities"
+      }
+    },
+    "ARMAMENTS": {
+      "LABEL": "Armaments",
+      "GROUPS": {
+        "equipped": "Equipped Equipment",
+        "unequipped": "Unequipped Equipment",
+        "bodyParts": "Body Parts"
+      }
+    },
+    "SAVES": {
+      "LABEL": "Saves",
+      "GROUPS": {
+        "attributes": "Attributes",
+        "protections": "Protections"
+      }
+    },
+    "TRADECRAFTS": {
+      "LABEL": "Tradecrafts",
+      "GROUPS": {
+        "artisan": "Artisan Tradecrafts",
+        "mediator": "Mediator Tradecrafts",
+        "scholar": "Scholar Tradecrafts",
+        "survivalist": "Survivalist Tradecrafts",
+        "prestige": "Prestige Tradecrafts",
+        "fluencies": "Fluencies"
+      }
+    },
+    "CONSUMABLES": {
+      "LABEL": "Consumables",
+      "GROUPS": {
+        "resources": "Resources",
+        "abilities": "Consumable Abilities",
+        "properties": "Consumable Properties",
+        "equipment": "Consumable Equipment"
+      }
+    },
+    "DOCUMENTS": {
+      "LABEL": "Documents",
+      "GROUPS": {
+        "archetypes": "Archetypes",
+        "conditions": "Conditions",
+        "consequences": "Consequences",
+        "cover": "Cover",
+        "hacks": "Hacks",
+        "imbuements": "Imbuements",
+        "mounts": "Mounts",
+        "powers": "Powers",
+        "ranks": "Ranks",
+        "species": "Species"
+      }
+    }
+  }
+}

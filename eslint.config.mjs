@@ -1,0 +1,211 @@
+import js from "@eslint/js";
+import jsdoc from "eslint-plugin-jsdoc";
+import perfectionist from "eslint-plugin-perfectionist";
+import globals from "globals";
+import tseslint from "typescript-eslint";
+
+const globalDocuments = {
+  ActiveEffect: "readonly",
+  Actor: "readonly",
+  ActorDelta: "readonly",
+  Adventure: "readonly",
+  AmbientLightDocument: "readonly",
+  AmbientSoundDocument: "readonly",
+  Card: "readonly",
+  Cards: "readonly",
+  ChatMessage: "readonly",
+  Combat: "readonly",
+  Combatant: "readonly",
+  CombatantGroup: "readonly",
+  DrawingDocument: "readonly",
+  FogExploration: "readonly",
+  Folder: "readonly",
+  Item: "readonly",
+  JournalEntry: "readonly",
+  JournalEntryCategory: "readonly",
+  JournalEntryPage: "readonly",
+  Macro: "readonly",
+  NoteDocument: "readonly",
+  Playlist: "readonly",
+  PlaylistSound: "readonly",
+  RegionBehavior: "readonly",
+  RegionDocument: "readonly",
+  RollTable: "readonly",
+  Scene: "readonly",
+  Setting: "readonly",
+  TableResult: "readonly",
+  TileDocument: "readonly",
+  TokenDocument: "readonly",
+  User: "readonly",
+  WallDocument: "readonly",
+};
+
+const globalHelpers = {
+  Collection: "readonly",
+  Color: "readonly",
+  fromUuid: "readonly",
+  fromUuidSync: "readonly",
+  getDocumentClass: "readonly",
+  Hooks: "readonly",
+  ProseMirror: "readonly",
+  Roll: "readonly",
+  TextEditor: "readonly",
+};
+
+const globalClient = {
+  _del: "readonly",
+  _loc: "readonly",
+  _replace: "readonly",
+  canvas: "readonly",
+  CONFIG: "writable",
+  CONST: "writable",
+  foundry: "readonly",
+  game: "readonly",
+  getDocumentClass: "readonly",
+  Handlebars: "readonly",
+  io: "readonly",
+  PIXI: "readonly",
+  ProseMirror: "readonly",
+  ui: "readonly",
+};
+
+const globalMacro = { actor: "readonly", event: "readonly", scope: "readonly" };
+
+const globalTeriock = { TERIOCK: "readonly", teriock: "readonly", tm: "readonly" };
+
+const globalModule = { TokenMagic: "readonly" };
+
+const files = ["{src,scripts,macros}/**/*.{mjs,ts}", "eslint.config.mjs"];
+
+export default tseslint.config(
+  { files, ...js.configs.recommended },
+  ...tseslint.configs.recommended.map(c => {
+    return { ...c, files };
+  }),
+  {
+    files,
+    plugins: { jsdoc, perfectionist },
+    rules: {
+      "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }],
+      "default-case": "error",
+      "dot-notation": "error",
+      eqeqeq: ["error", "smart"],
+      "jsdoc/check-types": "warn",
+      "jsdoc/require-jsdoc": "warn",
+      "jsdoc/require-param": "warn",
+      "logical-assignment-operators": ["error", "always"],
+      "no-console": "off",
+      "no-else-return": "error",
+      "no-empty": ["warn", { allowEmptyCatch: true }],
+      "no-implicit-coercion": "error",
+      "no-var": "error",
+      "object-shorthand": "error",
+      "perfectionist/sort-array-includes": ["error", { order: "asc", type: "alphabetical" }],
+      "perfectionist/sort-arrays": ["error", {
+        order: "asc",
+        type: "alphabetical",
+        useConfigurationIf: { matchesAstSelector: "TSAsExpression > ArrayExpression" },
+      }],
+      "perfectionist/sort-classes": ["error", {
+        groups: [
+          "index-signature",
+          ["private-static-property", "private-static-accessor-property"],
+          ["private-static-get-method", "private-static-set-method"],
+          ["private-static-method", "private-static-function-property"],
+          ["protected-static-property", "protected-static-accessor-property"],
+          ["protected-static-get-method", "protected-static-set-method"],
+          ["protected-static-method", "protected-static-function-property"],
+          ["static-property", "static-accessor-property"],
+          ["static-get-method", "static-set-method"],
+          "static-block",
+          ["static-method", "static-function-property"],
+          "constructor",
+          ["private-property", "private-accessor-property"],
+          ["private-get-method", "private-set-method"],
+          ["private-method", "private-function-property"],
+          ["protected-property", "protected-accessor-property"],
+          ["protected-get-method", "protected-set-method"],
+          ["protected-method", "protected-function-property"],
+          ["property", "accessor-property"],
+          ["get-method", "set-method"],
+          ["method", "function-property"],
+          "unknown",
+        ],
+        order: "asc",
+        type: "alphabetical",
+      }],
+      "perfectionist/sort-exports": ["error", { order: "asc", type: "alphabetical" }],
+      "perfectionist/sort-import-attributes": ["error", { order: "asc", type: "alphabetical" }],
+      "perfectionist/sort-imports": ["error", {
+        groups: [
+          "type-import",
+          ["value-builtin", "value-external"],
+          "type-internal",
+          "value-internal",
+          ["type-parent", "type-sibling", "type-index"],
+          ["value-parent", "value-sibling", "value-index"],
+          "ts-equals-import",
+          "unknown",
+        ],
+        internalPattern: ["^~/.+", "^@/.+", "^#.+"],
+        newlinesBetween: 1,
+        order: "asc",
+        type: "alphabetical",
+      }],
+      "perfectionist/sort-object-types": ["error", {
+        fallbackSort: { type: "unsorted" },
+        groups: ["property", "method", "unknown"],
+        ignoreCase: true,
+        newlinesBetween: "ignore",
+        newlinesInside: "ignore",
+        order: "asc",
+        partitionByComment: false,
+        partitionByNewLine: false,
+        sortBy: "name",
+        specialCharacters: "keep",
+        type: "alphabetical",
+      }],
+      "perfectionist/sort-objects": [
+        "error",
+        { type: "unsorted", useConfigurationIf: { declarationCommentMatchesPattern: "^no sort$" } },
+        {
+          type: "unsorted",
+          useConfigurationIf: { matchesAstSelector: "PropertyDefinition[key.name='PARTS'] > ObjectExpression" },
+        },
+        { type: "unsorted", useConfigurationIf: { declarationMatchesPattern: "^PARTS$" } },
+        { groups: ["property", "method", "unknown"], order: "asc", partitionByNewLine: true, type: "alphabetical" },
+      ],
+      "perfectionist/sort-sets": ["error", { order: "asc", type: "alphabetical" }],
+      "perfectionist/sort-union-types": ["error", {
+        groups: [
+          "conditional",
+          "function",
+          "import",
+          "intersection",
+          "keyword",
+          "literal",
+          "named",
+          "object",
+          "operator",
+          "tuple",
+          "union",
+          "nullish",
+        ],
+        order: "asc",
+        type: "alphabetical",
+      }],
+      "prefer-const": "warn",
+      "prefer-template": "error",
+      "template-curly-spacing": ["error", "never"],
+    },
+    settings: { jsdoc: { preferredTypes: { ".<>": "<>", Function: "function", Object: "object" } } },
+  },
+  {
+    files: ["{foundry,macros,scripts,src}/**/*.{mjs,ts}", "eslint.config.mjs"],
+    languageOptions: {
+      globals: { ...globals.browser, ...globalDocuments, ...globalHelpers, ...globalClient, ...globalModule },
+    },
+  },
+  { files: ["{macros,src}/**/*.{mjs,ts}"], languageOptions: { globals: { ...globalTeriock } } },
+  { files: ["macros/**/*.mjs"], languageOptions: { globals: { ...globalMacro } } },
+);

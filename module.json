@@ -1,0 +1,54 @@
+{
+  "authors": [
+    {
+      "discord": "gpoel",
+      "name": "Gabriel Perko-Engel"
+    }
+  ],
+  "compatibility": {
+    "minimum": "14",
+    "verified": "14"
+  },
+  "description": "This module adds support for the Teriock system with the Token Action HUD module.",
+  "download": "https://github.com/GabePoel/Teriock-FoundryVTT-Token-Action-HUD/releases/latest/download/module.zip",
+  "esmodules": [
+    "src/init.mjs"
+  ],
+  "id": "token-action-hud-teriock",
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "library": "false",
+  "manifest": "https://github.com/GabePoel/Teriock-FoundryVTT-Token-Action-HUD/releases/latest/download/module.json",
+  "readme": "README.md",
+  "relationships": {
+    "systems": [
+      {
+        "id": "teriock",
+        "type": "system",
+        "compatibility": {
+          "minimum": "0.12",
+          "verified": "0.12"
+        }
+      }
+    ],
+    "requires": [
+      {
+        "id": "token-action-hud-core",
+        "type": "module",
+        "compatibility": {
+          "minimum": "2",
+          "verified": "2",
+          "maximum": "2.1.99"
+        }
+      }
+    ]
+  },
+  "title": "Token Action HUD: Teriock",
+  "url": "This is auto replaced",
+  "version": "1.0.0"
+}
