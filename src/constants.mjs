@@ -8,6 +8,7 @@ export const TOP_GROUPS = {
   basicAbilities: { id: "basic-abilities", name: "TERIOCK_TAH.BASIC_ABILITIES.LABEL" },
   consumables: { id: "consumables", name: "TERIOCK_TAH.CONSUMABLES.LABEL" },
   saves: { id: "saves", name: "TERIOCK_TAH.SAVES.LABEL" },
+  tools: { id: "tools", name: "TERIOCK_TAH.TOOLS.LABEL" },
   tradecrafts: { id: "tradecrafts", name: "TERIOCK_TAH.TRADECRAFTS.LABEL" },
 };
 
@@ -84,4 +85,7 @@ export const GROUPS = {
   powers: { id: "powers", name: "TERIOCK_TAH.DOCUMENTS.GROUPS.powers", type: "system" },
   ranks: { id: "ranks", name: "TERIOCK_TAH.DOCUMENTS.GROUPS.ranks", type: "system" },
   species: { id: "species", name: "TERIOCK_TAH.DOCUMENTS.GROUPS.species", type: "system" },
+
+  // Other Tools
+  utilities: { id: "utilities", name: "TERIOCK_TAH.TOOLS.GROUPS.utilities", type: "system" },
 };

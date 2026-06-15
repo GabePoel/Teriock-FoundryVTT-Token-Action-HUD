@@ -30,7 +30,6 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
           id: k,
           img: tm.path.getImage("core-rules", v.identifier.split(":")[1]),
           info1: { text: this.actor?.system.attributes[k]?.currentValue.signedString() },
-          listName: v.label,
           name: v.label,
           system: { actionId: k, actionType: "attribute" },
         };
@@ -46,20 +45,25 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
      * @param {object} group
      */
     #addProtectionActions(groupIds, group) {
-      const protections = [
-        { id: "resistance", img: tm.path.getImage("effect-types", "resistance"), name: "Resistance" },
-        { id: "hexproof", img: tm.path.getImage("effect-types", "hexproof"), name: "Hexproof" },
-        { id: "immunity", img: tm.path.getImage("effect-types", "immunity"), name: "Immunity" },
-        { id: "hexseal", img: tm.path.getImage("effect-types", "hexseal"), name: "Hexseal" },
-      ];
+      const protections = [{
+        id: "resistance",
+        img: tm.path.getImage("effect-types", "resistance"),
+        name: _loc("TERIOCK_TAH.SAVES.PROTECTIONS.resistance"),
+      }, {
+        id: "hexproof",
+        img: tm.path.getImage("effect-types", "hexproof"),
+        name: _loc("TERIOCK_TAH.SAVES.PROTECTIONS.hexproof"),
+      }, {
+        id: "immunity",
+        img: tm.path.getImage("effect-types", "immunity"),
+        name: _loc("TERIOCK_TAH.SAVES.PROTECTIONS.immunity"),
+      }, {
+        id: "hexseal",
+        img: tm.path.getImage("effect-types", "hexseal"),
+        name: _loc("TERIOCK_TAH.SAVES.PROTECTIONS.hexseal"),
+      }];
       const actions = protections.map((p) => {
-        return {
-          id: p.id,
-          img: p.img,
-          listName: p.name,
-          name: p.name,
-          system: { actionId: p.id, actionType: "protection" },
-        };
+        return { id: p.id, img: p.img, name: p.name, system: { actionId: p.id, actionType: "protection" } };
       });
       if (groupIds.includes(group.id)) {
         this.addActions(actions, { id: group.id });
@@ -79,9 +83,38 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
           id: k,
           img: tm.path.getImage("tradecrafts", k),
           info1: { text: this.actor?.system.tradecrafts[k]?.currentValue.signedString() },
-          listName: v.label,
           name: v.label,
           system: { actionId: k, actionType: "tradecraft" },
+        };
+      });
+      if (groupIds.includes(group.id)) {
+        this.addActions(actions, { id: group.id });
+      }
+    }
+
+    /**
+     * Add actions for utilities.
+     * @param {string[]} groupIds
+     * @param {object} group
+     */
+    #addUtilityActions(groupIds, group) {
+      const commands = [
+        { command: "heal", identifier: "healing" },
+        { command: "revitalize", identifier: "revitalizing" },
+        { command: "awaken", identifier: "awaken", key: "keywords" },
+        { command: "bag", identifier: "death-bag" },
+        { command: "cover", identifier: "full-cover", key: "cover" },
+        { command: "uncover", identifier: "half-cover", key: "cover" },
+        { command: "shortRest", identifier: "short-rest" },
+        { command: "longRest", identifier: "long-rest" },
+      ];
+      const actions = commands.map((c) => {
+        const ActivationCls = Object.values(teriock.data.pseudoDocuments.activations).find((a) => a.TYPE === c.command);
+        return {
+          id: c.command,
+          img: tm.path.getImage(c.key ?? "core-rules", c.identifier),
+          name: _loc(new ActivationCls().label),
+          system: { actionId: c.command, actionType: "command" },
         };
       });
       if (groupIds.includes(group.id)) {
@@ -101,7 +134,6 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
         const out = {
           id: d.uuid,
           img: d.img,
-          listName: d.fullName || d.name,
           name: d.fullName || d.name,
           system: { actionId: d.uuid, actionType: "child" },
         };
@@ -205,6 +237,9 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
         (actor) => actor?.equipment.filter((e) => e.system.consumable),
         GROUPS.consumableEquipment,
       );
+
+      // Utilities
+      this.#addUtilityActions(groupIds, GROUPS.utilities);
 
       // Other Documents
       this.#addActionsFromDocuments(groupIds, (actor) => actor?.species, GROUPS.species);

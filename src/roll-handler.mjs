@@ -43,6 +43,14 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
                 console.warn(`No protection handler found for action ID "${actionId}"`);
             }
             break;
+          case "command": {
+            const ActivationCls = Object.values(teriock.data.pseudoDocuments.activations).find((a) =>
+              a.TYPE === actionId
+            );
+            const activation = new ActivationCls();
+            activation.primaryAction();
+            break;
+          }
           default:
             console.warn(`No handler found for action type "${actionType}"`);
         }
@@ -57,8 +65,12 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 
     /** @inheritdoc */
     async handleActionClick(event) {
-      for (const actor of this.actors) {
-        this.#handleActionClick(event, actor);
+      if (this.action.system.actionType === "command") {
+        this.#handleActionClick(event, this.actors[0]);
+      } else {
+        for (const actor of this.actors) {
+          this.#handleActionClick(event, actor);
+        }
       }
     }
   }

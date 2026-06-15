@@ -54,6 +54,7 @@ Hooks.once("tokenActionHudCoreApiReady", () => {
         ...TOP_GROUPS.consumables,
         groups: [GROUPS.resources, GROUPS.consumableAbilities, GROUPS.consumableProperties, GROUPS.consumableEquipment],
       }),
+      nestGroups({ ...TOP_GROUPS.tools, groups: [GROUPS.utilities] }),
     ],
   });
 });

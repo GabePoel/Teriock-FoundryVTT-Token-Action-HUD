@@ -9,15 +9,6 @@
         "passive": "Passive Abilities"
       }
     },
-    "BASIC_ABILITIES": {
-      "LABEL": "Basic Abilities",
-      "GROUPS": {
-        "active": "Active Basic Abilities",
-        "reactive": "Reactive Basic Abilities",
-        "slow": "Slow Basic Abilities",
-        "passive": "Passive Basic Abilities"
-      }
-    },
     "ARMAMENTS": {
       "LABEL": "Armaments",
       "GROUPS": {
@@ -26,22 +17,13 @@
         "bodyParts": "Body Parts"
       }
     },
-    "SAVES": {
-      "LABEL": "Saves",
+    "BASIC_ABILITIES": {
+      "LABEL": "Basic Abilities",
       "GROUPS": {
-        "attributes": "Attributes",
-        "protections": "Protections"
-      }
-    },
-    "TRADECRAFTS": {
-      "LABEL": "Tradecrafts",
-      "GROUPS": {
-        "artisan": "Artisan Tradecrafts",
-        "mediator": "Mediator Tradecrafts",
-        "scholar": "Scholar Tradecrafts",
-        "survivalist": "Survivalist Tradecrafts",
-        "prestige": "Prestige Tradecrafts",
-        "fluencies": "Fluencies"
+        "active": "Active Basic Abilities",
+        "reactive": "Reactive Basic Abilities",
+        "slow": "Slow Basic Abilities",
+        "passive": "Passive Basic Abilities"
       }
     },
     "CONSUMABLES": {
@@ -66,6 +48,36 @@
         "powers": "Powers",
         "ranks": "Ranks",
         "species": "Species"
+      }
+    },
+    "SAVES": {
+      "GROUPS": {
+        "attributes": "Attributes",
+        "protections": "Protections"
+      },
+      "LABEL": "Saves",
+      "PROTECTIONS": {
+        "hexproof": "Hexproof",
+        "hexseal": "Hexseal",
+        "immunity": "Immunity",
+        "resistance": "Resistance"
+      }
+    },
+    "TOOLS": {
+      "GROUPS": {
+        "utilities": "Utilities"
+      },
+      "LABEL": "Tools"
+    },
+    "TRADECRAFTS": {
+      "LABEL": "Tradecrafts",
+      "GROUPS": {
+        "artisan": "Artisan Tradecrafts",
+        "mediator": "Mediator Tradecrafts",
+        "scholar": "Scholar Tradecrafts",
+        "survivalist": "Survivalist Tradecrafts",
+        "prestige": "Prestige Tradecrafts",
+        "fluencies": "Fluencies"
       }
     }
   }
