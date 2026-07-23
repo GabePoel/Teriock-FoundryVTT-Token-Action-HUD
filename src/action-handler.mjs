@@ -29,7 +29,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
           icon: "<i class=\"fas fa-plus\" title=\"Bonus\"></i>",
           id: k,
           img: tm.path.getImage("core-rules", v.identifier.split(":")[1]),
-          info1: { text: this.actor?.system.attributes[k]?.currentValue.signedString() },
+          info1: { text: this.actor?.system.attributes[k]?.value.signedString() },
           name: v.label,
           system: { actionId: k, actionType: "attribute" },
         };
@@ -82,7 +82,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
         return {
           id: k,
           img: tm.path.getImage("tradecrafts", k),
-          info1: { text: this.actor?.system.tradecrafts[k]?.currentValue.signedString() },
+          info1: { text: this.actor?.system.tradecrafts[k]?.value.signedString() },
           name: v.label,
           system: { actionId: k, actionType: "tradecraft" },
         };
