@@ -19,6 +19,22 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
     }
 
     /**
+     * Add actions for affinities.
+     * @param {string[]} groupIds
+     * @param {object} group
+     * @param {boolean} [protection=false]
+     */
+    #addAffinityActions(groupIds, group, protection = false) {
+      if (groupIds.includes(group.id)) {
+        const actions = Object.entries(TERIOCK.config.affinity.types).filter(([_k, v]) => !protection || v.protection)
+          .map(([k, v]) => {
+            return { id: k, img: v.img, name: v.label, system: { actionId: k, actionType: "affinity" } };
+          });
+        this.addActions(actions, { id: group.id });
+      }
+    }
+
+    /**
      * Add actions for attributes.
      * @param {string[]} groupIds
      * @param {object} group
@@ -40,30 +56,62 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
     }
 
     /**
-     * Add actions for protections.
+     * Add actions for toggling conditions.
      * @param {string[]} groupIds
      * @param {object} group
      */
-    #addProtectionActions(groupIds, group) {
-      const protections = [{
-        id: "resistance",
-        img: tm.path.getImage("effect-types", "resistance"),
-        name: _loc("TERIOCK_TAH.SAVES.PROTECTIONS.resistance"),
-      }, {
-        id: "hexproof",
-        img: tm.path.getImage("effect-types", "hexproof"),
-        name: _loc("TERIOCK_TAH.SAVES.PROTECTIONS.hexproof"),
-      }, {
-        id: "immunity",
-        img: tm.path.getImage("effect-types", "immunity"),
-        name: _loc("TERIOCK_TAH.SAVES.PROTECTIONS.immunity"),
-      }, {
-        id: "hexseal",
-        img: tm.path.getImage("effect-types", "hexseal"),
-        name: _loc("TERIOCK_TAH.SAVES.PROTECTIONS.hexseal"),
-      }];
-      const actions = protections.map((p) => {
-        return { id: p.id, img: p.img, name: p.name, system: { actionId: p.id, actionType: "protection" } };
+    #addConditionToggleActions(groupIds, group) {
+      const actions = Object.values(TERIOCK.statuses.conditions).map(v => {
+        return {
+          cssClass: `toggle ${this.actor?.statuses.has(v.id) ? "active" : ""}`,
+          id: `toggle-${v.id}`,
+          img: v.img,
+          name: v.name,
+          selected: this.actor?.statuses.has(v.id),
+          system: { actionId: v.id, actionType: "toggleCondition" },
+        };
+      });
+      if (groupIds.includes(group.id)) {
+        this.addActions(actions, { id: group.id });
+      }
+    }
+
+    /**
+     * Add actions for hacks.
+     * @param {string[]} groupIds
+     * @param {object} group
+     */
+    #addTakeHackActions(groupIds, group) {
+      const actions = Object.entries(TERIOCK.config.hack).map(([k, v]) => {
+        return {
+          cssClass: `toggle ${this.actor?.system.hacks[k]?.value > 0 ? "active" : ""}`,
+          id: `hack-${k}`,
+          img: TERIOCK.statuses.hacks[v.statuses[0]]?.img,
+          info1: { text: this.actor?.system.hacks[k]?.value },
+          name: v.label,
+          system: { actionId: k, actionType: "takeHack" },
+        };
+      });
+      if (groupIds.includes(group.id)) {
+        this.addActions(actions, { id: group.id });
+      }
+    }
+
+    /**
+     * Add actions for unhacks.
+     * @param {string[]} groupIds
+     * @param {object} group
+     */
+    #addTakeUnhackActions(groupIds, group) {
+      const actions = Object.entries(TERIOCK.config.hack).map(([k, v]) => {
+        return {
+          cssClass: `toggle ${this.actor?.system.hacks[k]?.value > 0 ? "active" : ""}`,
+          id: `unhack-${k}`,
+          img: TERIOCK.statuses.hacks[v.statuses[0]]?.img,
+          info1: { text: this.actor?.system.hacks[k]?.value },
+          name: v.remove,
+          system: { actionId: k, actionType: "takeUnhack" },
+        };
       });
       if (groupIds.includes(group.id)) {
         this.addActions(actions, { id: group.id });
@@ -129,8 +177,8 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
      */
     buildActionsFromDocuments(documents, group) {
       if (!documents.length) { return; }
-      const docs = TERIOCK.config.document[documents[0].type].sorter(documents).filter((d) => d.active);
-      const actions = docs.map((d) => {
+      const docs = TERIOCK.config.document[documents[0].type]?.sorter?.(documents)?.filter((d) => d.active);
+      const actions = docs?.map((d) => {
         const out = {
           id: d.uuid,
           img: d.img,
@@ -142,7 +190,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
         }
         return out;
       });
-      this.addActions(actions, { id: group.id });
+      if (actions) { this.addActions(actions, { id: group.id }); }
     }
 
     /** @inheritdoc */
@@ -218,7 +266,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 
       // Saves
       this.#addAttributeActions(groupIds, GROUPS.attributes);
-      this.#addProtectionActions(groupIds, GROUPS.protections);
+      this.#addAffinityActions(groupIds, GROUPS.protections, true);
 
       // Consumables
       this.#addActionsFromDocuments(groupIds, (actor) => actor?.resources, GROUPS.resources);
@@ -240,6 +288,10 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 
       // Utilities
       this.#addUtilityActions(groupIds, GROUPS.utilities);
+      this.#addAffinityActions(groupIds, GROUPS.affinities);
+      this.#addTakeHackActions(groupIds, GROUPS.takeHacks);
+      this.#addTakeUnhackActions(groupIds, GROUPS.takeUnhacks);
+      this.#addConditionToggleActions(groupIds, GROUPS.toggleConditions);
 
       // Other Documents
       this.#addActionsFromDocuments(groupIds, (actor) => actor?.species, GROUPS.species);

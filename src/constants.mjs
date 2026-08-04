@@ -61,7 +61,8 @@ export const GROUPS = {
   // Attributes
   attributes: { id: "attributes", name: "TERIOCK_TAH.SAVES.GROUPS.attributes", type: "system" },
 
-  // Protections
+  // Affinities
+  affinities: { id: "affinities", name: "TERIOCK_TAH.TOOLS.GROUPS.affinities", type: "system" },
   protections: { id: "protections", name: "TERIOCK_TAH.SAVES.GROUPS.protections", type: "system" },
 
   // Consumables
@@ -87,5 +88,8 @@ export const GROUPS = {
   species: { id: "species", name: "TERIOCK_TAH.DOCUMENTS.GROUPS.species", type: "system" },
 
   // Other Tools
+  takeHacks: { id: "takeHacks", name: "TERIOCK_TAH.TOOLS.GROUPS.takeHacks", type: "system" },
+  takeUnhacks: { id: "takeUnhacks", name: "TERIOCK_TAH.TOOLS.GROUPS.takeUnhacks", type: "system" },
+  toggleConditions: { id: "toggleConditions", name: "TERIOCK_TAH.TOOLS.GROUPS.toggleConditions", type: "system" },
   utilities: { id: "utilities", name: "TERIOCK_TAH.TOOLS.GROUPS.utilities", type: "system" },
 };

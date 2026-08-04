@@ -48,13 +48,14 @@ Hooks.once("tokenActionHudCoreApiReady", () => {
           GROUPS.tradecraftsScholar,
           GROUPS.tradecraftsSurvivalist,
           GROUPS.tradecraftsPrestige,
+          GROUPS.fluencies,
         ],
       }),
       nestGroups({
         ...TOP_GROUPS.consumables,
         groups: [GROUPS.resources, GROUPS.consumableAbilities, GROUPS.consumableProperties, GROUPS.consumableEquipment],
       }),
-      nestGroups({ ...TOP_GROUPS.tools, groups: [GROUPS.utilities] }),
+      nestGroups({ ...TOP_GROUPS.tools, groups: [GROUPS.utilities, GROUPS.toggleConditions, GROUPS.takeHacks] }),
     ],
   });
 });

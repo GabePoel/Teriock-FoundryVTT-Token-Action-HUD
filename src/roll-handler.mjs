@@ -25,23 +25,8 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
           case "attribute":
             actor.system.attributes[actionId]?.use({ event });
             break;
-          case "protection":
-            switch (actionId) {
-              case "resistance":
-                actor.system.rollResistance({ event });
-                break;
-              case "hexproof":
-                actor.system.rollResistance({ event, hex: true });
-                break;
-              case "immunity":
-                actor.system.rollImmunity({ event });
-                break;
-              case "hexseal":
-                actor.system.rollImmunity({ event, hex: true });
-                break;
-              default:
-                console.warn(`No protection handler found for action ID "${actionId}"`);
-            }
+          case "affinity":
+            actor.system.rollAffinity(actionId, { event });
             break;
           case "command": {
             const ActivationCls = Object.values(teriock.data.pseudoDocuments.activations).find((a) =>
@@ -49,6 +34,26 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
             );
             const activation = new ActivationCls();
             activation.primaryAction();
+            break;
+          }
+          case "takeHack": {
+            if (event.type === "auxclick") {
+              actor.system.takeUnhack(actionId);
+            } else {
+              actor.system.takeHack(actionId);
+            }
+            break;
+          }
+          case "takeUnhack": {
+            if (event.type === "auxclick") {
+              actor.system.takeHack(actionId.replace("hack-", ""));
+            } else {
+              actor.system.takeUnhack(actionId.replace("unhack-", ""));
+            }
+            break;
+          }
+          case "toggleCondition": {
+            actor.toggleStatusEffect(actionId.replace("toggle-", ""));
             break;
           }
           default:

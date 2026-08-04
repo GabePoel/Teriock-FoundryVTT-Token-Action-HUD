@@ -65,7 +65,11 @@
     },
     "TOOLS": {
       "GROUPS": {
-        "utilities": "Utilities"
+        "affinities": "Affinities",
+        "utilities": "Utilities",
+        "takeHacks": "Take Hacks",
+        "takeUnhacks": "Take Unhacks",
+        "toggleConditions": "Toggle Conditions"
       },
       "LABEL": "Tools"
     },
