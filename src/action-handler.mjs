@@ -44,7 +44,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
         return {
           icon: "<i class=\"fas fa-plus\" title=\"Bonus\"></i>",
           id: k,
-          img: tm.path.getImage("core-rules", v.identifier.split(":")[1]),
+          img: teriock.helpers.path.getImage("core-rules", v.identifier.split(":")[1]),
           info1: { text: this.actor?.system.attributes[k]?.value.signedString() },
           name: v.label,
           system: { actionId: k, actionType: "attribute" },
@@ -129,7 +129,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
       const actions = tradecrafts.map(([k, v]) => {
         return {
           id: k,
-          img: tm.path.getImage("tradecrafts", k),
+          img: teriock.helpers.path.getImage("tradecrafts", k),
           info1: { text: this.actor?.system.tradecrafts[k]?.value.signedString() },
           name: v.label,
           system: { actionId: k, actionType: "tradecraft" },
@@ -160,7 +160,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
         const ActivationCls = Object.values(teriock.data.pseudoDocuments.activations).find((a) => a.TYPE === c.command);
         return {
           id: c.command,
-          img: tm.path.getImage(c.key ?? "core-rules", c.identifier),
+          img: teriock.helpers.path.getImage(c.key ?? "core-rules", c.identifier),
           name: _loc(new ActivationCls().label),
           system: { actionId: c.command, actionType: "command" },
         };
