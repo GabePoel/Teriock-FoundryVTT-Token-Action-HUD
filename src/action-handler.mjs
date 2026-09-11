@@ -202,22 +202,22 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
       // Non-basic abilities
       this.#addActionsFromDocuments(
         groupIds,
-        (actor) => actor?.previewedTypes.ability.filter((a) => a.system.maneuver === "active"),
+        (actor) => actor?.previewedTypes.ability.filter((a) => !a.system.isBasic && a.system.maneuver === "active"),
         GROUPS.actorAbilitiesActive,
       );
       this.#addActionsFromDocuments(
         groupIds,
-        (actor) => actor?.previewedTypes.ability.filter((a) => a.system.maneuver === "reactive"),
+        (actor) => actor?.previewedTypes.ability.filter((a) => !a.system.isBasic && a.system.maneuver === "reactive"),
         GROUPS.actorAbilitiesReactive,
       );
       this.#addActionsFromDocuments(
         groupIds,
-        (actor) => actor?.previewedTypes.ability.filter((a) => a.system.maneuver === "slow"),
+        (actor) => actor?.previewedTypes.ability.filter((a) => !a.system.isBasic && a.system.maneuver === "slow"),
         GROUPS.actorAbilitiesSlow,
       );
       this.#addActionsFromDocuments(
         groupIds,
-        (actor) => actor?.previewedTypes.ability.filter((a) => a.system.maneuver === "passive"),
+        (actor) => actor?.previewedTypes.ability.filter((a) => !a.system.isBasic && a.system.maneuver === "passive"),
         GROUPS.actorAbilitiesPassive,
       );
 
