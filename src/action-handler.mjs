@@ -3,6 +3,8 @@ import { GROUPS } from "./constants.mjs";
 export let ActionHandler = null;
 
 Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
+  const sorter = teriock.helpers.sort.pathSorterFactory("name", "_stats.createdTime");
+
   /** @extends {ActionHandler} */
   class TeriockActionHandler extends coreModule.api.ActionHandler {
     /**
@@ -179,7 +181,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
      */
     buildActionsFromDocuments(documents, group) {
       if (!documents.length) { return; }
-      const docs = TERIOCK.config.document[documents[0].type]?.sorter?.(documents)?.filter((d) => d.active);
+      const docs = documents.filter(d => d.active).sort(sorter);
       const actions = docs?.map((d) => {
         const out = {
           id: d.uuid,
