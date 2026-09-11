@@ -30,7 +30,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
             break;
           case "command": {
             const ActivationCls = Object.values(teriock.data.pseudoDocuments.activations).find((a) =>
-              a.TYPE === actionId
+              a.metadata.type === actionId
             );
             const activation = new ActivationCls();
             activation.primaryAction();

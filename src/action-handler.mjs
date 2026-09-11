@@ -157,7 +157,9 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
         { command: "longRest", identifier: "long-rest" },
       ];
       const actions = commands.map((c) => {
-        const ActivationCls = Object.values(teriock.data.pseudoDocuments.activations).find((a) => a.TYPE === c.command);
+        const ActivationCls = Object.values(teriock.data.pseudoDocuments.activations).find((a) =>
+          a.metadata.type === c.command
+        );
         return {
           id: c.command,
           img: teriock.helpers.path.getImage(c.key ?? "core-rules", c.identifier),
@@ -198,22 +200,22 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
       // Non-basic abilities
       this.#addActionsFromDocuments(
         groupIds,
-        (actor) => actor?.abilities.filter((a) => a.system.maneuver === "active"),
+        (actor) => actor?.previewedTypes.ability.filter((a) => a.system.maneuver === "active"),
         GROUPS.actorAbilitiesActive,
       );
       this.#addActionsFromDocuments(
         groupIds,
-        (actor) => actor?.abilities.filter((a) => a.system.maneuver === "reactive"),
+        (actor) => actor?.previewedTypes.ability.filter((a) => a.system.maneuver === "reactive"),
         GROUPS.actorAbilitiesReactive,
       );
       this.#addActionsFromDocuments(
         groupIds,
-        (actor) => actor?.abilities.filter((a) => a.system.maneuver === "slow"),
+        (actor) => actor?.previewedTypes.ability.filter((a) => a.system.maneuver === "slow"),
         GROUPS.actorAbilitiesSlow,
       );
       this.#addActionsFromDocuments(
         groupIds,
-        (actor) => actor?.abilities.filter((a) => a.system.maneuver === "passive"),
+        (actor) => actor?.previewedTypes.ability.filter((a) => a.system.maneuver === "passive"),
         GROUPS.actorAbilitiesPassive,
       );
 
@@ -246,15 +248,15 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
       // Armaments
       this.#addActionsFromDocuments(
         groupIds,
-        (actor) => actor?.equipment.filter((e) => e.system.equipped),
+        (actor) => actor?.previewedTypes.equipment.filter((e) => e.system.equipped),
         GROUPS.equipmentEquipped,
       );
       this.#addActionsFromDocuments(
         groupIds,
-        (actor) => actor?.equipment.filter((e) => !e.system.equipped),
+        (actor) => actor?.previewedTypes.equipment.filter((e) => !e.system.equipped),
         GROUPS.equipmentUnequipped,
       );
-      this.#addActionsFromDocuments(groupIds, (actor) => actor?.bodyParts, GROUPS.bodyParts);
+      this.#addActionsFromDocuments(groupIds, (actor) => actor?.previewedTypes.body, GROUPS.bodyParts);
 
       // Tradecrafts
       this.#addTradecraftActions(groupIds, "artisan", GROUPS.tradecraftsArtisan);
@@ -262,27 +264,27 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
       this.#addTradecraftActions(groupIds, "scholar", GROUPS.tradecraftsScholar);
       this.#addTradecraftActions(groupIds, "survivalist", GROUPS.tradecraftsSurvivalist);
       this.#addTradecraftActions(groupIds, "prestige", GROUPS.tradecraftsPrestige);
-      this.#addActionsFromDocuments(groupIds, (actor) => actor?.fluencies, GROUPS.fluencies);
+      this.#addActionsFromDocuments(groupIds, (actor) => actor?.previewedTypes.fluency, GROUPS.fluencies);
 
       // Saves
       this.#addAttributeActions(groupIds, GROUPS.attributes);
       this.#addAffinityActions(groupIds, GROUPS.protections, true);
 
       // Consumables
-      this.#addActionsFromDocuments(groupIds, (actor) => actor?.resources, GROUPS.resources);
+      this.#addActionsFromDocuments(groupIds, (actor) => actor?.previewedTypes.resource, GROUPS.resources);
       this.#addActionsFromDocuments(
         groupIds,
-        (actor) => actor?.abilities.filter((a) => a.system.consumable),
+        (actor) => actor?.previewedTypes.ability.filter((a) => a.system.consumable),
         GROUPS.consumableAbilities,
       );
       this.#addActionsFromDocuments(
         groupIds,
-        (actor) => actor?.properties.filter((p) => p.system.consumable),
+        (actor) => actor?.previewedTypes.property.filter((p) => p.system.consumable),
         GROUPS.consumableProperties,
       );
       this.#addActionsFromDocuments(
         groupIds,
-        (actor) => actor?.equipment.filter((e) => e.system.consumable),
+        (actor) => actor?.previewedTypes.equipment.filter((e) => e.system.consumable),
         GROUPS.consumableEquipment,
       );
 
@@ -294,17 +296,17 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
       this.#addConditionToggleActions(groupIds, GROUPS.toggleConditions);
 
       // Other Documents
-      this.#addActionsFromDocuments(groupIds, (actor) => actor?.species, GROUPS.species);
-      this.#addActionsFromDocuments(groupIds, (actor) => actor?.powers, GROUPS.powers);
-      this.#addActionsFromDocuments(groupIds, (actor) => actor?.ranks, GROUPS.ranks);
-      this.#addActionsFromDocuments(groupIds, (actor) => actor?.archetypes, GROUPS.archetypes);
-      this.#addActionsFromDocuments(groupIds, (actor) => actor?.mounts, GROUPS.mounts);
-      this.#addActionsFromDocuments(groupIds, (actor) => actor?.consequences, GROUPS.consequences);
-      this.#addActionsFromDocuments(groupIds, (actor) => actor?.conditions, GROUPS.conditions);
-      this.#addActionsFromDocuments(groupIds, (actor) => actor?.imbuements, GROUPS.imbuements);
-      this.#addActionsFromDocuments(groupIds, (actor) => actor?.visibleChildrenByType?.hack ?? [], GROUPS.hacks);
-      this.#addActionsFromDocuments(groupIds, (actor) => actor?.conditions, GROUPS.conditions);
-      this.#addActionsFromDocuments(groupIds, (actor) => actor?.visibleChildrenByType?.cover ?? [], GROUPS.cover);
+      this.#addActionsFromDocuments(groupIds, (actor) => actor?.previewedTypes.species, GROUPS.species);
+      this.#addActionsFromDocuments(groupIds, (actor) => actor?.previewedTypes.power, GROUPS.powers);
+      this.#addActionsFromDocuments(groupIds, (actor) => actor?.previewedTypes.rank, GROUPS.ranks);
+      this.#addActionsFromDocuments(groupIds, (actor) => actor?.previewedTypes.archetype, GROUPS.archetypes);
+      this.#addActionsFromDocuments(groupIds, (actor) => actor?.previewedTypes.mount, GROUPS.mounts);
+      this.#addActionsFromDocuments(groupIds, (actor) => actor?.previewedTypes.consequence, GROUPS.consequences);
+      this.#addActionsFromDocuments(groupIds, (actor) => actor?.previewedTypes.condition, GROUPS.conditions);
+      this.#addActionsFromDocuments(groupIds, (actor) => actor?.previewedTypes.imbuement, GROUPS.imbuements);
+      this.#addActionsFromDocuments(groupIds, (actor) => actor?.previewedTypes.hack ?? [], GROUPS.hacks);
+      this.#addActionsFromDocuments(groupIds, (actor) => actor?.previewedTypes.condition, GROUPS.conditions);
+      this.#addActionsFromDocuments(groupIds, (actor) => actor?.previewedTypes.cover ?? [], GROUPS.cover);
     }
   }
 
