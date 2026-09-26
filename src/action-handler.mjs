@@ -46,7 +46,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
         return {
           icon: "<i class=\"fas fa-plus\" title=\"Bonus\"></i>",
           id: k,
-          img: teriock.helpers.path.getImage("core-rules", v.identifier.split(":")[1]),
+          img: v.img,
           info1: { text: this.actor?.system.attributes[k]?.value.signedString() },
           name: v.label,
           system: { actionId: k, actionType: "attribute" },
@@ -131,7 +131,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
       const actions = tradecrafts.map(([k, v]) => {
         return {
           id: k,
-          img: teriock.helpers.path.getImage("tradecrafts", k),
+          img: v.img,
           info1: { text: this.actor?.system.tradecrafts[k]?.value.signedString() },
           name: v.label,
           system: { actionId: k, actionType: "tradecraft" },
@@ -149,14 +149,14 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
      */
     #addUtilityActions(groupIds, group) {
       const commands = [
-        { command: "heal", identifier: "healing" },
-        { command: "revitalize", identifier: "revitalizing" },
-        { command: "awaken", identifier: "awaken", key: "keywords" },
-        { command: "bag", identifier: "death-bag" },
-        { command: "cover", identifier: "full-cover", key: "cover" },
-        { command: "uncover", identifier: "half-cover", key: "cover" },
-        { command: "shortRest", identifier: "short-rest" },
-        { command: "longRest", identifier: "long-rest" },
+        { command: "heal", img: TERIOCK.display.thumbnails.manifest.core.healing },
+        { command: "revitalize", img: TERIOCK.display.thumbnails.manifest.core.revitalizing },
+        { command: "awaken", img: TERIOCK.display.thumbnails.manifest.keyword.awaken },
+        { command: "bag", img: TERIOCK.display.thumbnails.manifest.core.deathBag },
+        { command: "cover", img: TERIOCK.display.thumbnails.manifest.cover.fullCover },
+        { command: "uncover", img: TERIOCK.display.thumbnails.manifest.cover.halfCover },
+        { command: "shortRest", img: TERIOCK.display.thumbnails.manifest.core.resting },
+        { command: "longRest", img: TERIOCK.display.thumbnails.manifest.core.resting },
       ];
       const actions = commands.map((c) => {
         const ActivationCls = Object.values(teriock.data.pseudoDocuments.activations).find((a) =>
@@ -164,7 +164,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
         );
         return {
           id: c.command,
-          img: teriock.helpers.path.getImage(c.key ?? "core-rules", c.identifier),
+          img: c.img,
           name: _loc(new ActivationCls().label),
           system: { actionId: c.command, actionType: "command" },
         };
