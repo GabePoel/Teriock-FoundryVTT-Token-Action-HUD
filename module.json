@@ -32,7 +32,7 @@
         "type": "system",
         "compatibility": {
           "minimum": "0.14",
-          "verified": "0.14"
+          "verified": "0.15"
         }
       }
     ],
@@ -50,5 +50,5 @@
   },
   "title": "Token Action HUD: Teriock",
   "url": "https://github.com/GabePoel/Teriock-FoundryVTT-Token-Action-HUD",
-  "version": "1.0.8"
+  "version": "1.0.9"
 }
