@@ -3,7 +3,7 @@ import { GROUPS } from "./constants.mjs";
 export let ActionHandler = null;
 
 Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
-  const sorter = teriock.helpers.sort.pathSorterFactory("name", "_stats.createdTime");
+  const sorter = teriock.utils.pathSorterFactory("name", "_stats.createdTime");
 
   /** @extends {ActionHandler} */
   class TeriockActionHandler extends coreModule.api.ActionHandler {
@@ -28,7 +28,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
      */
     #addAffinityActions(groupIds, group, protection = false) {
       if (groupIds.includes(group.id)) {
-        const actions = Object.entries(TERIOCK.config.affinity.types).filter(([_k, v]) => !protection || v.protection)
+        const actions = Object.entries(TERIOCK.CONFIG.affinity.types).filter(([_k, v]) => !protection || v.protection)
           .map(([k, v]) => {
             return { id: k, img: v.img, name: v.label, system: { actionId: k, actionType: "affinity" } };
           });
@@ -42,7 +42,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
      * @param {object} group
      */
     #addAttributeActions(groupIds, group) {
-      const actions = Object.entries(TERIOCK.config.attribute).map(([k, v]) => {
+      const actions = Object.entries(TERIOCK.CONFIG.attribute).map(([k, v]) => {
         return {
           icon: "<i class=\"fas fa-plus\" title=\"Bonus\"></i>",
           id: k,
@@ -63,7 +63,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
      * @param {object} group
      */
     #addConditionToggleActions(groupIds, group) {
-      const actions = Object.values(TERIOCK.statuses.conditions).map(v => {
+      const actions = Object.values(TERIOCK.STATUSES.conditions).map(v => {
         return {
           cssClass: `toggle ${this.actor?.statuses.has(v.id) ? "active" : ""}`,
           id: `toggle-${v.id}`,
@@ -84,11 +84,11 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
      * @param {object} group
      */
     #addTakeHackActions(groupIds, group) {
-      const actions = Object.entries(TERIOCK.config.hack).map(([k, v]) => {
+      const actions = Object.entries(TERIOCK.CONFIG.hack).map(([k, v]) => {
         return {
           cssClass: `toggle ${this.actor?.system.hacks[k]?.value > 0 ? "active" : ""}`,
           id: `hack-${k}`,
-          img: TERIOCK.statuses.hacks[v.statuses[0]]?.img,
+          img: TERIOCK.STATUSES.hacks[v.statuses[0]]?.img,
           info1: { text: this.actor?.system.hacks[k]?.value },
           name: v.label,
           system: { actionId: k, actionType: "takeHack" },
@@ -105,11 +105,11 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
      * @param {object} group
      */
     #addTakeUnhackActions(groupIds, group) {
-      const actions = Object.entries(TERIOCK.config.hack).map(([k, v]) => {
+      const actions = Object.entries(TERIOCK.CONFIG.hack).map(([k, v]) => {
         return {
           cssClass: `toggle ${this.actor?.system.hacks[k]?.value > 0 ? "active" : ""}`,
           id: `unhack-${k}`,
-          img: TERIOCK.statuses.hacks[v.statuses[0]]?.img,
+          img: TERIOCK.STATUSES.hacks[v.statuses[0]]?.img,
           info1: { text: this.actor?.system.hacks[k]?.value },
           name: v.remove,
           system: { actionId: k, actionType: "takeUnhack" },
@@ -127,7 +127,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
      * @param {object} group
      */
     #addTradecraftActions(groupIds, field, group) {
-      const tradecrafts = Object.entries(TERIOCK.config.tradecraft.tradecrafts).filter(([_k, v]) => v.field === field);
+      const tradecrafts = Object.entries(TERIOCK.CONFIG.tradecraft.tradecrafts).filter(([_k, v]) => v.field === field);
       const actions = tradecrafts.map(([k, v]) => {
         return {
           id: k,
@@ -149,14 +149,14 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
      */
     #addUtilityActions(groupIds, group) {
       const commands = [
-        { command: "heal", img: TERIOCK.display.thumbnails.manifest.core.healing },
-        { command: "revitalize", img: TERIOCK.display.thumbnails.manifest.core.revitalizing },
-        { command: "awaken", img: TERIOCK.display.thumbnails.manifest.keyword.awaken },
-        { command: "bag", img: TERIOCK.display.thumbnails.manifest.core.deathBag },
-        { command: "cover", img: TERIOCK.display.thumbnails.manifest.cover.fullCover },
-        { command: "uncover", img: TERIOCK.display.thumbnails.manifest.cover.halfCover },
-        { command: "shortRest", img: TERIOCK.display.thumbnails.manifest.core.resting },
-        { command: "longRest", img: TERIOCK.display.thumbnails.manifest.core.resting },
+        { command: "heal", img: TERIOCK.DISPLAY.thumbnails.manifest.core.healing },
+        { command: "revitalize", img: TERIOCK.DISPLAY.thumbnails.manifest.core.revitalizing },
+        { command: "awaken", img: TERIOCK.DISPLAY.thumbnails.manifest.keyword.awaken },
+        { command: "bag", img: TERIOCK.DISPLAY.thumbnails.manifest.core.deathBag },
+        { command: "cover", img: TERIOCK.DISPLAY.thumbnails.manifest.cover.fullCover },
+        { command: "uncover", img: TERIOCK.DISPLAY.thumbnails.manifest.cover.halfCover },
+        { command: "shortRest", img: TERIOCK.DISPLAY.thumbnails.manifest.core.resting },
+        { command: "longRest", img: TERIOCK.DISPLAY.thumbnails.manifest.core.resting },
       ];
       const actions = commands.map((c) => {
         const ActivationCls = Object.values(teriock.data.pseudoDocuments.activations).find((a) =>
