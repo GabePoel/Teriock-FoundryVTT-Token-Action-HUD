@@ -159,9 +159,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
         { command: "longRest", img: TERIOCK.DISPLAY.thumbnails.manifest.core.resting },
       ];
       const actions = commands.map((c) => {
-        const ActivationCls = Object.values(teriock.data.pseudoDocuments.activations).find((a) =>
-          a.metadata.type === c.command
-        );
+        const ActivationCls = teriock.data.pseudoDocuments.activations.commands[c.command];
         return {
           id: c.command,
           img: c.img,

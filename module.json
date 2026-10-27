@@ -31,7 +31,7 @@
         "id": "teriock",
         "type": "system",
         "compatibility": {
-          "minimum": "0.15.55",
+          "minimum": "0.15.56",
           "verified": "0.15"
         }
       }

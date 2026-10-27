@@ -29,9 +29,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
             actor.system.rollAffinity(actionId, { event });
             break;
           case "command": {
-            const ActivationCls = Object.values(teriock.data.pseudoDocuments.activations).find((a) =>
-              a.metadata.type === actionId
-            );
+            const ActivationCls = teriock.data.pseudoDocuments.activations.commands[actionId];
             const activation = new ActivationCls();
             activation.primaryAction();
             break;
