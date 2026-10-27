@@ -189,7 +189,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
           name: d.fullName || d.name,
           system: { actionId: d.uuid, actionType: "child" },
         };
-        if (d.system.consumable) {
+        if (d.system.consumption?.enabled) {
           out.info1 = { text: d.system.remainingString };
         }
         return out;
@@ -276,17 +276,17 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
       this.#addActionsFromDocuments(groupIds, (actor) => actor?.previewedTypes.resource, GROUPS.resources);
       this.#addActionsFromDocuments(
         groupIds,
-        (actor) => actor?.previewedTypes.ability.filter((a) => a.system.consumable),
+        (actor) => actor?.previewedTypes.ability.filter((a) => a.system.consumption.enabled),
         GROUPS.consumableAbilities,
       );
       this.#addActionsFromDocuments(
         groupIds,
-        (actor) => actor?.previewedTypes.property.filter((p) => p.system.consumable),
+        (actor) => actor?.previewedTypes.property.filter((p) => p.system.consumption.enabled),
         GROUPS.consumableProperties,
       );
       this.#addActionsFromDocuments(
         groupIds,
-        (actor) => actor?.previewedTypes.equipment.filter((e) => e.system.consumable),
+        (actor) => actor?.previewedTypes.equipment.filter((e) => e.system.consumption.enabled),
         GROUPS.consumableEquipment,
       );
 
@@ -299,7 +299,11 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 
       // Other Documents
       this.#addActionsFromDocuments(groupIds, (actor) => actor?.previewedTypes.species, GROUPS.species);
-      this.#addActionsFromDocuments(groupIds, (actor) => actor?.previewedTypes.power, GROUPS.powers);
+      this.#addActionsFromDocuments(
+        groupIds,
+        (actor) => actor?.previewed.contents.filter((d) => d.metadata.tags.simple),
+        GROUPS.powers,
+      );
       this.#addActionsFromDocuments(groupIds, (actor) => actor?.previewedTypes.rank, GROUPS.ranks);
       this.#addActionsFromDocuments(groupIds, (actor) => actor?.previewedTypes.archetype, GROUPS.archetypes);
       this.#addActionsFromDocuments(groupIds, (actor) => actor?.previewedTypes.mount, GROUPS.mounts);
