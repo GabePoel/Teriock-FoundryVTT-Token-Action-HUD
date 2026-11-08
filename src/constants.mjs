@@ -2,6 +2,9 @@ export const MODULE = { ID: "token-action-hud-teriock" };
 
 export const REQUIRED_CORE_MODULE_VERSION = "2";
 
+/** Action types that make rolls groups can share. */
+export const SHARED_ACTION_TYPES = new Set(["affinity", "attribute", "child", "tradecraft"]);
+
 export const TOP_GROUPS = {
   abilities: { id: "abilities", name: "TERIOCK_TAH.ABILITIES.LABEL" },
   armaments: { id: "armaments", name: "TERIOCK_TAH.ARMAMENTS.LABEL" },

@@ -47,7 +47,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
           icon: "<i class=\"fas fa-plus\" title=\"Bonus\"></i>",
           id: k,
           img: v.img,
-          info1: { text: this.actor?.system.attributes[k]?.value.signedString() },
+          info1: { text: this.actor?.system.attributes[k]?.tag },
           name: v.label,
           system: { actionId: k, actionType: "attribute" },
         };
@@ -132,7 +132,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
         return {
           id: k,
           img: v.img,
-          info1: { text: this.actor?.system.tradecrafts[k]?.value.signedString() },
+          info1: { text: this.actor?.system.tradecrafts[k]?.tag },
           name: v.label,
           system: { actionId: k, actionType: "tradecraft" },
         };

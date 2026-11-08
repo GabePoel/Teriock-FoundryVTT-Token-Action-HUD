@@ -1,3 +1,5 @@
+import { SHARED_ACTION_TYPES } from "./constants.mjs";
+
 export let RollHandler = null;
 
 Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
@@ -63,7 +65,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
     /** @type {TeriockActor[]} */
     get actors() {
       if (this.actor) { return [this.actor]; }
-      return game.actors.selected;
+      return SHARED_ACTION_TYPES.has(this.action.system.actionType) ? game.actors.rollers : game.actors.selected;
     }
 
     /** @inheritdoc */
