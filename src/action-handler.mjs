@@ -65,7 +65,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
     #addConditionToggleActions(groupIds, group) {
       const actions = Object.values(TERIOCK.STATUSES.conditions).map(v => {
         return {
-          cssClass: `toggle ${this.actor?.statuses.has(v.id) ? "active" : ""}`,
+          cssClass: teriock.utils.toClass(["toggle", this.actor?.statuses.has(v.id) && "active"]),
           id: `toggle-${v.id}`,
           img: v.img,
           name: v.name,
@@ -86,7 +86,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
     #addTakeHackActions(groupIds, group) {
       const actions = Object.entries(TERIOCK.CONFIG.hack).map(([k, v]) => {
         return {
-          cssClass: `toggle ${this.actor?.system.hacks[k]?.value > 0 ? "active" : ""}`,
+          cssClass: teriock.utils.toClass(["toggle", this.actor?.system.hacks[k]?.value > 0 && "active"]),
           id: `hack-${k}`,
           img: TERIOCK.STATUSES.hacks[v.statuses[0]]?.img,
           info1: { text: this.actor?.system.hacks[k]?.value },
@@ -107,7 +107,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
     #addTakeUnhackActions(groupIds, group) {
       const actions = Object.entries(TERIOCK.CONFIG.hack).map(([k, v]) => {
         return {
-          cssClass: `toggle ${this.actor?.system.hacks[k]?.value > 0 ? "active" : ""}`,
+          cssClass: teriock.utils.toClass(["toggle", this.actor?.system.hacks[k]?.value > 0 && "active"]),
           id: `unhack-${k}`,
           img: TERIOCK.STATUSES.hacks[v.statuses[0]]?.img,
           info1: { text: this.actor?.system.hacks[k]?.value },
